@@ -12,10 +12,9 @@ jobs:
         run: unzip MorbiStore.zip -d extracted
       - uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '17'
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+          cache: gradle
       - name: Make gradlew executable
         working-directory: extracted/android
         run: chmod +x gradlew
