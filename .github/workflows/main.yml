@@ -8,16 +8,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Unzip project
+        run: unzip MorbiStore.zip -d extracted
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
       - uses: android-actions/setup-android@v3
       - uses: gradle/actions/setup-gradle@v3
+      - name: Make gradlew executable
+        working-directory: extracted/android
+        run: chmod +x gradlew
       - name: Build APK
-        working-directory: android
-        run: gradle assembleDebug
+        working-directory: extracted/android
+        run: ./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: morbi-store-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: extracted/android/app/build/outputs/apk/debug/app-debug.apk
