@@ -15,10 +15,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          accept-android-sdk-licenses: true
-          cmdline-tools-version: "11076708"
+        uses: android-actions/setup-android@v2
       - name: Make gradlew executable
         working-directory: extracted/android
         run: chmod +x gradlew
