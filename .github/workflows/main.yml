@@ -14,14 +14,17 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - uses: android-actions/setup-android@v3
-      - uses: gradle/actions/setup-gradle@v3
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          accept-android-sdk-licenses: true
+          cmdline-tools-version: "11076708"
       - name: Make gradlew executable
         working-directory: extracted/android
         run: chmod +x gradlew
       - name: Build APK
         working-directory: extracted/android
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
         with:
           name: morbi-store-apk
